@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="th">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,114 +8,238 @@
     <link rel="stylesheet" href="styles.css">
     <script src="script.js" defer></script>
 </head>
+
 <body>
 
-<div class="mobile-container">
-    
-    <header class="header">
-        <div class="brand-logo">KAYS ESPRESSO <span>BAR</span></div>
-        <div class="queue-box">
-            <span class="queue-label">คิวที่</span>
-            <span class="queue-number">12</span>
-        </div>
+    <div class="mobile-container">
+
+        <header class="header">
+            <div class="brand-logo">KAYS ESPRESSO <span>BAR</span></div>
+            <div class="queue-box">
+                <span class="queue-label">เลขที่</span>
+                <span class="queue-number">12</span>
+            </div>
+            <div id="root">
+            </div>
+        </header>
         <div id="root">
-    </div>
-    </header>
-    <div id="root">
-    </div>
-
-    <div class="status-bar">
-        <div class="status-text">
-            <h4>กำลังจัดเตรียม...</h4>
-            <p>คาดว่าจะเสร็จใน 5 นาที</p>
         </div>
-        <div class="status-icon">⏳</div>
-    </div>
 
-    <div class="promo-banner">
-        <div class="promo-overlay">
-            <span style="color: #C69C6D; font-size: 12px; font-weight: bold;">SPECIAL MENU</span>
-            <h3 style="margin: 0;">Nitro Cold Brew</h3>
+        <div class="status-bar">
+            <div class="status-text">
+                <h4>กำลังจัดเตรียม...</h4>
+                <p>คาดว่าจะเสร็จใน 5 นาที</p>
+            </div>
+            <div class="status-icon">⏳</div>
         </div>
-    </div>
-    
 
-    <div class="category-scroll">
-        <div class="cat-btn active">ทั้งหมด</div>
-        <div class="cat-btn">SPECIAL MENU</div>
-        <div class="cat-btn">Coffee</div>
-        <div class="cat-btn">milk tea</div>
-        <div class="cat-btn">tea</div>
-        <div class="cat-btn">smoothy</div>
-        <div class="cat-btn">cake</div>
-        <div class="cat-btn">bakery</div>
-        <div class="cat-btn">italain soda</div>
-        <div class="cat-btn">orther</div>
-        <div class="cat-btn">topping</div>
-        <div class="cat-btn">tea</div>
-    </div>
+        <div class="promo-banner">
+            <div class="slider-track" id="sliderTrack">
 
-    <div class="menu-grid">
-        <div class="menu-item">
-            <div class="badge-pop">ขายดี</div>
-            <img src="pic/Americano.png" class="menu-img">
-            <div class="menu-info">
-                <div class="menu-name">Americano</div>
-                <div class="menu-price">
-                    ฿ 75
-                    <div class="add-btn">+</div>
+                <div class="slide-item">
+                    <img src="pic/cut.jpg" alt="Promo 1">
+                    <div class="promo-overlay">
+                        <span>SPECIAL MENU</span>
+                        <h3 style="margin: 0;">Nitro Cold Brew</h3>
+                    </div>
+                </div>
+
+                <div class="slide-item">
+                    <img src="https://images.unsplash.com/photo-1509042239860-f550ce710b93?w=800&q=80" alt="Promo 2">
+                    <div class="promo-overlay">
+                        <h3>Special Croissant</h3>
+                        <p>อบสดใหม่ทุกเช้า... (Slide 2)</p>
+                    </div>
+                </div>
+
+                <div class="slide-item">
+                    <img src="https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=800&q=80" alt="Promo 3">
+                    <div class="promo-overlay">
+                        <h3>Buy 1 Get 1</h3>
+                        <p>โปรโมชั่นพิเศษวันนี้... (Slide 3)</p>
+                    </div>
+                </div>
+            </div>
+
+            <button class="slider-arrow prev" onclick="moveSlide(-1)">&#10094;</button>
+            <button class="slider-arrow next" onclick="moveSlide(1)">&#10095;</button>
+
+
+
+            <ul style="display: block" class="dot"></ul>
+        </div>
+
+        <div class="category-scroll">
+            <div class="hamburger">
+                <span class="Bar"></span>
+                <span class="Bar"></span>
+                <span class="Bar"></span>
+            </div>
+            <div class="nav-menu">
+                <div class="cat-btn active" data-target="all">ทั้งหมด</div>
+                <div class="cat-btn" data-target="special">SPECIAL MENU</div>
+                <div class="cat-btn" data-target="coffee">Coffee</div>
+                <div class="cat-btn" data-target="milk tea">milk tea</div>
+                <div class="cat-btn" data-target="tea">tea</div>
+                <div class="cat-btn" data-target="smoothy">smoothy</div>
+                <div class="cat-btn" data-target="cake">cake</div>
+                <div class="cat-btn" data-target="bakery">bakery</div>
+                <div class="cat-btn" data-target="italain soda">italain soda</div>
+                <div class="cat-btn" data-target="orther">orther</div>
+                <div class="cat-btn" data-target="topping">topping</div>
+            </div>
+        </div>
+
+        <div class="menu-grid">
+            <div class="menu-item" data-category="coffee">
+                <div class="badge-pop">ขายดี</div>
+                <img src="pic/Americano.png" class="menu-img">
+                <div class="menu-info">
+                    <div class="menu-name">Americano</div>
+                    <div class="menu-price">
+                        ฿ 75
+                        <div class="add-btn">+</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="menu-item" data-category="coffee">
+                <div class="badge-pop">ขายดี</div>
+                <img src="pic/Gemini_Generated_Image_558jbx558jbx558j.png" class="menu-img">
+                <div class="menu-info">
+                    <div class="menu-name">Espresso</div>
+                    <div class="menu-price">
+                        ฿ 95
+                        <div class="add-btn">+</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="menu-item" data-category="coffee">
+                <div class="badge-pop">ขายดี</div>
+                <img src="pic/Americano.png" class="menu-img">
+                <div class="menu-info">
+                    <div class="menu-name">Americano</div>
+                    <div class="menu-price">
+                        ฿ 75
+                        <div class="add-btn">+</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="menu-item" data-category="coffee">
+                <div class="badge-pop">ขายดี</div>
+                <img src="pic/Gemini_Generated_Image_558jbx558jbx558j.png" class="menu-img">
+                <div class="menu-info">
+                    <div class="menu-name">Espresso</div>
+                    <div class="menu-price">
+                        ฿ 95
+                        <div class="add-btn">+</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="menu-item" data-category="coffee">
+                <div class="badge-pop">ขายดี</div>
+                <img src="pic/Americano.png" class="menu-img">
+                <div class="menu-info">
+                    <div class="menu-name">Americano</div>
+                    <div class="menu-price">
+                        ฿ 75
+                        <div class="add-btn">+</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="menu-item" data-category="coffee">
+                <div class="badge-pop">ขายดี</div>
+                <img src="pic/Gemini_Generated_Image_558jbx558jbx558j.png" class="menu-img">
+                <div class="menu-info">
+                    <div class="menu-name">Espresso</div>
+                    <div class="menu-price">
+                        ฿ 95
+                        <div class="add-btn">+</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="menu-item" data-category="tea">
+                <div class="badge-pop">แนะนำ</div>
+                <img src="https://images.unsplash.com/photo-1551024709-8f23befc6f87?auto=format&fit=crop&w=400&q=80"
+                    class="menu-img">
+                <div class="menu-info">
+                    <div class="menu-name">Matcha Latte</div>
+                    <div class="menu-price">
+                        ฿ 85
+                        <div class="add-btn">+</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="menu-item" data-category="bakery">
+                <img src="https://images.unsplash.com/photo-1600093463592-8e36ae95ef56?auto=format&fit=crop&w=400&q=80"
+                    class="menu-img">
+                <div class="menu-info">
+                    <div class="menu-name">Croissant</div>
+                    <div class="menu-price">
+                        ฿ 60
+                        <div class="add-btn">+</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="menu-item" data-category="tea">
+                <div class="badge-pop">แนะนำ</div>
+                <img src="https://images.unsplash.com/photo-1551024709-8f23befc6f87?auto=format&fit=crop&w=400&q=80"
+                    class="menu-img">
+                <div class="menu-info">
+                    <div class="menu-name">Matcha Latte</div>
+                    <div class="menu-price">
+                        ฿ 85
+                        <div class="add-btn">+</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="menu-item" data-category="bakery">
+                <img src="https://images.unsplash.com/photo-1600093463592-8e36ae95ef56?auto=format&fit=crop&w=400&q=80"
+                    class="menu-img">
+                <div class="menu-info">
+                    <div class="menu-name">Croissant</div>
+                    <div class="menu-price">
+                        ฿ 60
+                        <div class="add-btn">+</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="menu-item" data-category="tea">
+                <div class="badge-pop">แนะนำ</div>
+                <img src="https://images.unsplash.com/photo-1551024709-8f23befc6f87?auto=format&fit=crop&w=400&q=80"
+                    class="menu-img">
+                <div class="menu-info">
+                    <div class="menu-name">Matcha Latte</div>
+                    <div class="menu-price">
+                        ฿ 85
+                        <div class="add-btn">+</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="menu-item" data-category="bakery">
+                <img src="https://images.unsplash.com/photo-1600093463592-8e36ae95ef56?auto=format&fit=crop&w=400&q=80"
+                    class="menu-img">
+                <div class="menu-info">
+                    <div class="menu-name">Croissant</div>
+                    <div class="menu-price">
+                        ฿ 60
+                        <div class="add-btn">+</div>
+                    </div>
                 </div>
             </div>
         </div>
 
-        <div class="menu-item">
-            <div class="badge-pop">ขายดี</div>
-            <img src="pic/Gemini_Generated_Image_558jbx558jbx558j.png" class="menu-img">
-            <div class="menu-info">
-                <div class="menu-name">Espresso</div>
-                <div class="menu-price">
-                    ฿ 95
-                    <div class="add-btn">+</div>
-                </div>
-            </div>
-        </div>
-        
-        <div class="menu-item">
-            <div class="badge-pop">แนะนำ</div>
-            <img src="https://images.unsplash.com/photo-1551024709-8f23befc6f87?auto=format&fit=crop&w=400&q=80" class="menu-img">
-            <div class="menu-info">
-                <div class="menu-name">Matcha Latte</div>
-                <div class="menu-price">
-                    ฿ 85
-                    <div class="add-btn">+</div>
-                </div>
-            </div>
-        </div>
-
-        <div class="menu-item">
-            <img src="https://images.unsplash.com/photo-1600093463592-8e36ae95ef56?auto=format&fit=crop&w=400&q=80" class="menu-img">
-            <div class="menu-info">
-                <div class="menu-name">Croissant</div>
-                <div class="menu-price">
-                    ฿ 60
-                    <div class="add-btn">+</div>
-                </div>
-            </div>
-        </div>
-
-        <div class="menu-item">
-            <img src="https://images.unsplash.com/photo-1600093463592-8e36ae95ef56?auto=format&fit=crop&w=400&q=80" class="menu-img">
-            <div class="menu-info">
-                <div class="menu-name">Croissant</div>
-                <div class="menu-price">
-                    ฿ 60
-                    <div class="add-btn">+</div>
-                </div>
-            </div>
-        </div>
     </div>
-
-</div>
-
 </body>
+
 </html>
