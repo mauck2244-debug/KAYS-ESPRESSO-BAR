@@ -44,8 +44,6 @@ body::after {
     background-position: top right;
     background-repeat: no-repeat;
 
-    /* กลับด้านรูป */
-
 
     z-index: -1;
     opacity: 1;
@@ -67,7 +65,7 @@ body::after {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background: linear-gradient(320deg, #121212, #2e2e2e, #121212);
+    background: linear-gradient(140deg, #121212, #2e2e2e, #121212);
     top: 0;
     z-index: 100;
     border-bottom: 1px solid #333;
@@ -139,7 +137,6 @@ body::after {
 }
 
 .nav-menu {
-
     display: flex;
     overflow: auto;
     padding: 2.5px 12.5px;
@@ -154,26 +151,6 @@ body::after {
 
 .category-scroll::-webkit-scrollbar {
     display: none;
-}
-
-.hamburger {
-    display: none;
-    cursor: pointer;
-    border: 1px solid;
-    border-radius: 20px;
-    border-color: #5a5a5a;
-    padding: 10px 25px;
-    transition: transform 0.2s;
-}
-
-.Bar {
-    display: block;
-    width: 25px;
-    height: 3px;
-    margin: 5px auto;
-    background-color: white;
-    transition: all 0.3s ease-in-out;
-    padding: 2px;
 }
 
 .cat-btn {
@@ -294,9 +271,8 @@ body::after {
     height: 350px;
     border-radius: 16px;
     position: relative;
-    /* เพื่อให้ลูกศรลอยเทียบกับกล่องนี้ */
+
     overflow: hidden;
-    /* ซ่อนภาพส่วนเกินที่ล้นออกไป */
     box-shadow: 0 0px 2.5px rgba(0, 0, 0, 0.5);
 
 }
@@ -394,17 +370,49 @@ body::after {
         margin: 0;
         padding: 0;
         font-family: 'Kanit', sans-serif;
-        background-color: #121212;
+        background-color: #161616;
         color: #ffffff;
         display: flex;
         justify-content: center;
         min-height: 100vh;
     }
 
+    body::before {
+        content: "";
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 25%;
+        height: 100%;
+        background-image: url('pic/background1.png');
+        background-size: 460px;
+        background-position: top left;
+        background-repeat: no-repeat;
+        z-index: -1;
+        opacity: 1;
+    }
+
+    body::after {
+        content: "";
+        position: fixed;
+        top: 0;
+        right: 0;
+        width: 25%;
+        height: 100%;
+        background-image: url('pic/background.png');
+        background-size: 460px;
+        background-position: top right;
+        background-repeat: no-repeat;
+
+
+        z-index: -1;
+        opacity: 1;
+    }
+
     .mobile-container {
         width: 100%;
         max-width: 600px;
-        background-color: #121212;
+        background: linear-gradient(40deg, #121212, #121212, #525151, #2c2c2c, #121212, #121212);
         min-height: 100vh;
         box-shadow: 0 0 20px rgba(50, 50, 50, 0.2);
         position: relative;
@@ -428,7 +436,7 @@ body::after {
     }
 
     .brand-logo {
-        font-size: clamp(10px,25px,32px);
+        font-size: clamp(10px, 25px, 32px);
         font-weight: 900;
         letter-spacing: 2px;
         color: #ffffff;
@@ -509,28 +517,6 @@ body::after {
 
     .category-scroll::-webkit-scrollbar {
         display: none;
-    }
-
-    .hamburger {
-        display: block;
-        cursor: pointer;
-        border: 1px solid;
-        border-radius: 30px;
-        border-color: #5a5a5a;
-        padding: 5px 25px;
-        transition: transform 0.2s;
-    }
-
-    .Bar {
-        display: block;
-        width: 20px;
-        height: 1px;
-        margin: 5px auto;
-        background-color: white;
-        transition: all 0.3s ease-in-out;
-        /* เอฟเฟกต์หมุน */
-        padding: 2px;
-        border-radius: 12px;
     }
 
     .cat-btn {
@@ -642,10 +628,17 @@ body::after {
         height: 200px;
         background-color: #333;
         border-radius: 16px;
-        background-size: cover;
-        background-position: center 35%;
         position: relative;
-        overflow: hidden;
+        display: flex;
+        overflow-x: auto;
+        scroll-snap-type: x mandatory;
+        -webkit-overflow-scolling: touch;
+        overflow-y: hidden;
+                
+    }
+
+    .promo-banner::-webkit-scrollbar {
+        display: none;
     }
 
     /* เงาดำทับรูปเพื่อให้ตัวหนังสืออ่านง่าย */
@@ -655,29 +648,37 @@ body::after {
         left: 0;
         width: 100%;
         padding: 15px;
-        background: linear-gradient(to top, rgba(0, 0, 0, 0.9), transparent);
+        background: linear-gradient(to top, rgba(0, 0, 0, 0.8) 0%, transparent 100%);
+        border-bottom-left-radius: 16px;
+        border-bottom-right-radius: 16px;
     }
 
-    .slider-arrow {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    background-color: rgba(0, 0, 0, 0.5);
-    color: #C69C6D;
-    border: none;
-    font-size: 20px;
-    padding: 5px 13.5px;
-    border-radius: 50%;
-    z-index: 10;
-    transition: 0.3s;
-}
+    .slide-item {
+        flex: 0 0 100%;
+        position: relative;
+        scroll-snap-align: center center;
+        scroll-snap-stop: always;
+        border-radius: 16px;
+    }
 
-.prev {
-    left: 10px;
-}
+    .slide-item img {
+        object-fit: cover;
+        object-position: center ;
+        width: 145px;
+        height: 100%;
+        display: block;
+        border-radius: 16px;
+    }
 
-.next {
-    right: 10px;
-}
+    .slide-item:nth-of-type(1) img {object-position: center;}
+    .slide-item:nth-of-type(2) img {object-position: center 82%;}
+    .slide-item:nth-of-type(3) img {object-position: center 35%; position: right;}
 
+    .prev {
+        display: none;
+    }
+
+    .next {
+        display: none;
+    }
 }

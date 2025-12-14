@@ -1,22 +1,3 @@
-// เมนูแฮมเบอร์เกอร์ (Hamburger Menu)
-// เลือก Element ที่ต้องการ
-const hamburger = document.querySelector(".hamburger");
-const navMenu = document.querySelector(".nav-menu");
-
-// เมื่อกดปุ่ม Hamburger
-hamburger.addEventListener("click", () => {
-    // สลับ class 'active' ไปมา (ถ้ามีก็เอาออก ถ้าไม่มีก็ใส่)
-    hamburger.classList.toggle("active");
-    navMenu.classList.toggle("active");
-});
-
-// (เสริม) เมื่อกดลิงก์ในเมนู ให้ปิดเมนูอัตโนมัติ
-document.querySelectorAll(".nav-link").forEach(n => n.addEventListener("click", () => {
-    hamburger.classList.remove("active");
-    navMenu.classList.remove("active");
-}));
-
-
 // 1. เลือกปุ่มเมนูทั้งหมด และ รายการอาหารทั้งหมด
 const menuBtns = document.querySelectorAll('.cat-btn');
 const foodItems = document.querySelectorAll('.menu-item');
@@ -52,37 +33,34 @@ menuBtns.forEach((btn) => {
     });
 });
 
-let currentIndex = 0; // เก็บว่าตอนนี้อยู่ที่ภาพไหน (เริ่มที่ 0)
+let currentIndex = 0;
 const track = document.getElementById('sliderTrack');
 const slides = document.querySelectorAll('.slide-item');
 const totalSlides = slides.length;
 
-// ฟังก์ชันเลื่อนสไลด์
+// --- 1. ฟังก์ชันเลื่อนสไลด์ (ของเดิม) ---
 function updateSlider() {
-    // คำนวณระยะเลื่อน: ถ้าภาพที่ 1 (index 0) เลื่อน 0%, ภาพที่ 2 (index 1) เลื่อน -100%
     const translateValue = -(currentIndex * 100) + '%';
     track.style.transform = 'translateX(' + translateValue + ')';
 }
 
-// ฟังก์ชันสำหรับปุ่มกด (n เป็น -1 หรือ 1)
+// --- 2. ฟังก์ชันคำนวณการเปลี่ยนหน้า (ของเดิม) ---
 function moveSlide(n) {
     currentIndex += n;
 
-    // ถ้ากดเลยภาพสุดท้าย -> วนกลับไปภาพแรก
+    // วนลูป
     if (currentIndex >= totalSlides) {
         currentIndex = 0;
     }
-    // ถ้ากดถอยหลังเลยภาพแรก -> วนไปภาพสุดท้าย
     if (currentIndex < 0) {
         currentIndex = totalSlides - 1;
     }
 
     updateSlider();
-
-    // (Optional) รีเซ็ตเวลา Auto Slide เมื่อมีการกดปุ่ม
-    resetTimer();
+    resetTimer(); // ทุกครั้งที่เปลี่ยนหน้า ให้เริ่มนับเวลา Auto ใหม่
 }
 
+// --- 3. ระบบ Auto Slide (ของเดิม) ---
 let autoSlideInterval = setInterval(() => {
     moveSlide(1);
 }, 6000);
@@ -92,4 +70,40 @@ function resetTimer() {
     autoSlideInterval = setInterval(() => {
         moveSlide(1);
     }, 6000);
+}
+
+// --- 4. ส่วนที่เพิ่มมาใหม่: ระบบจับนิ้วปัด (Touch Swipe) ---
+
+let startX = 0; // จุดที่นิ้วเริ่มแตะ
+let endX = 0;   // จุดที่นิ้วปล่อย
+
+// เมื่อนิ้วเริ่มแตะจอ
+track.addEventListener('touchstart', (e) => {
+    startX = e.touches[0].clientX; // จำตำแหน่งแกน X ที่แตะ
+    clearInterval(autoSlideInterval); // หยุด Auto Play ชั่วคราวตอนกำลังจะปัด
+}, { passive: true });
+
+// เมื่อนิ้วปล่อยจากจอ
+track.addEventListener('touchend', (e) => {
+    endX = e.changedTouches[0].clientX; // จำตำแหน่งสุดท้ายที่ปล่อย
+    handleSwipe(); // คำนวณผลลัพธ์
+    resetTimer();  // เริ่ม Auto Play ต่อ
+});
+
+function handleSwipe() {
+    // คำนวณระยะทาง (จุดเริ่ม - จุดจบ)
+    let diff = startX - endX;
+    
+    // กำหนดว่าต้องปัดยาวแค่ไหนถึงจะเปลี่ยนรูป (เช่น 50px)
+    let threshold = 50; 
+
+    if (Math.abs(diff) > threshold) {
+        if (diff > 0) {
+            // ปัดไปทางซ้าย (ค่าเป็นบวก) -> ไปรูปถัดไป
+            moveSlide(1);
+        } else {
+            // ปัดไปทางขวา (ค่าเป็นลบ) -> ย้อนกลับ
+            moveSlide(-1);
+        }
+    }
 }
