@@ -459,6 +459,7 @@ body::after {
         gap: 12px;
         margin-left: auto;
         flex-shrink: 0;
+        white-space: nowrap;
     }
 
     .queue-label {
@@ -680,5 +681,30 @@ body::after {
 
     .next {
         display: none;
+    }
+}
+
+@media screen and (max-width: 380px) {
+
+    .queue-label {
+        display: none;
+    }
+    
+    .queue-box {
+        gap: 0;
+        padding: 5px 10px;
+    }
+}
+
+@media screen and (max-width: 400px) {
+
+        .brand-logo {
+        font-size: 22.5px;
+        }
+        .brand-logo span {
+        font-size: 22.5px;
+        }
+    .queue-box {
+        padding: 5px 10px;
     }
 }
